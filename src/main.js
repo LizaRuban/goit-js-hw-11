@@ -1,10 +1,10 @@
-import fetchData from '/js/pixabay-api';
+import fetchData from '/js/pixabay-api.js';
 import {
   createGallery,
   clearGallery,
   showLoader,
   hideLoader,
-} from '/js/render-functions';
+} from '/js/render-functions.js';
 
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -14,6 +14,8 @@ form.addEventListener('submit', onSearch);
 
 function onSearch(event) {
   event.preventDefault();
+
+  const query = event.currentTarget.elements['search-text'].value.trim();
 
   if (!query) {
     iziToast.error({
@@ -47,7 +49,6 @@ function onSearch(event) {
     })
     .finally(() => {
       hideLoader();
+      event.currentTarget.reset();
     });
-
-  event.currentTarget.reset();
 }
