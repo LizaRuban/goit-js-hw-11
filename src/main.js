@@ -15,13 +15,17 @@ form.addEventListener('submit', onSearch);
 function onSearch(event) {
   event.preventDefault();
 
-  const query = event.currentTarget.elements['search-text'].value.trim();
-  clearGallery();
-  showLoader();
-
   if (!query) {
+    iziToast.error({
+      message: 'Please enter a search query!',
+    });
+
+    event.currentTarget.reset();
     return;
   }
+
+  clearGallery();
+  showLoader();
 
   fetchData(query)
     .then(data => {
